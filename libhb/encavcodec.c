@@ -1708,7 +1708,7 @@ static void get_packets( hb_work_object_t * w, hb_buffer_list_t * list )
         out->size       = pv->pkt->size;
         out->s.start    = get_frame_start(pv, frameno);
         out->s.duration = get_frame_duration(pv, frameno);
-        out->s.stop     = out->s.stop + out->s.duration;
+        out->s.stop     = out->s.start + out->s.duration;
         out->s.frametype = convert_pict_type(pv->pkt, &out->s.flags);
 
         if (out->s.flags & HB_FLAG_FRAMETYPE_KEY)
@@ -2198,7 +2198,7 @@ static int apply_encoder_level(AVCodecContext *context, AVDictionary **av_opts, 
             break;
     }
 
-    context->level = AV_FIELD_UNKNOWN;
+    context->level = AV_LEVEL_UNKNOWN;
 
     if (level_names == NULL || level_values == NULL)
     {
